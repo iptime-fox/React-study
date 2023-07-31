@@ -3,14 +3,17 @@ import { styled } from 'styled-components';
 
 const Title = styled.h3`
   font-size: 30px;
-  color: #ffacac;
+  margin-bottom: 0.5rem;
 `;
-const Today = styled.h3``;
+const Today = styled.h3`
+  font-size: 20px;
+  margin-bottom: 2rem;
+`;
 
 function Header() {
   return (
     <>
-      <Title>🧸 Today 🧸</Title>
+      <Title>🧸 TODAY 🧸</Title>
       <Today>{new Date().toDateString()}</Today>
     </>
   );
