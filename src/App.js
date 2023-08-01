@@ -3,6 +3,7 @@ import Header from './Component/Header';
 import ToDoEditor from './Component/ToDoEditor';
 import ToDoList from './Component/ToDoList';
 import { useRef, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 const Wrapper = styled.div`
   max-width: 500px;
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const [toDo, setToDo] = useState('');
+  const [toDo, setToDo] = useState([]);
   const idRef = useRef(0);
   const onCreate = (content) => {
     const newItem = {
@@ -47,6 +48,9 @@ function App() {
   };
   return (
     <Wrapper>
+      <Helmet>
+        <title>ToDo</title>
+      </Helmet>
       <Header />
       <ToDoEditor onCreate={onCreate} />
       <ToDoList toDo={toDo} onUpdate={onUpdate} onDelete={onDelete} />

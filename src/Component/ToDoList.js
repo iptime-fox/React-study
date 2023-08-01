@@ -58,15 +58,14 @@ function ToDoList({ toDo, onUpdate, onDelete }) {
         onChange={onChangeSearch}
       />
       <ToDoWrapper>
-        {toDo &&
-          toDo.map((it) => (
-            <TodoItems
-              key={it.id}
-              {...it}
-              onUpdate={onUpdate}
-              onDelete={onDelete}
-            />
-          ))}
+        {getSearchResult().map((it) => (
+          <TodoItems
+            key={it.id}
+            {...it}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+          />
+        ))}
       </ToDoWrapper>
     </ToDoTitle>
   );
