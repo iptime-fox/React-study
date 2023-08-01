@@ -6,8 +6,9 @@ const Title = styled.h3`
   margin-bottom: 0.5rem;
 `;
 const Today = styled.h3`
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 2rem;
+  color: #aacb73;
 `;
 
 function Header() {

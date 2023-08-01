@@ -59,6 +59,7 @@ table {
 body{
   font-family: 'Frank Ruhl Libre', serif;
   color:#ffacac;
+  /* background-color: #FFFFE8; */
 }
 a{
   text-decoration: none;
