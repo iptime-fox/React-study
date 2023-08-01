@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
+import TodoItems from './ToDoItem';
 
 const ToDoTitle = styled.div`
   width: 100%;
@@ -35,72 +36,37 @@ const ToDoWrapper = styled.div`
   gap: 20px;
 `;
 
-const ToDoItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ffacac;
-`;
-
-const CheckBox = styled.div`
-  width: 20px;
-`;
-
-const ToDoText = styled.div`
-  flex: 1;
-`;
-
-const ListDate = styled.div`
-  font-size: 14px;
-  color: #999;
-`;
-
-const DelBtn = styled.div`
-  button {
-    cursor: pointer;
-    font-size: 14px;
-    border: none;
-    background-color: transparent;
-  }
-`;
-
-function ToDoList() {
+function ToDoList({ toDo, onUpdate, onDelete }) {
+  const [search, setSearch] = useState('');
+  const onChangeSearch = (e) => {
+    setSearch(e.target.value);
+  };
+  const getSearchResult = () => {
+    return search === ''
+      ? toDo
+      : toDo.filter((it) =>
+          it.content.toLowerCase().includes(search.toLowerCase())
+        );
+  };
   return (
     <ToDoTitle>
       <h4>ToDo List 📋</h4>
-      <input type='text' placeholder='Search a keyword...' />
+      <input
+        type='text'
+        placeholder='Search a keyword...'
+        value={search}
+        onChange={onChangeSearch}
+      />
       <ToDoWrapper>
-        <ToDoItem>
-          <CheckBox>
-            <input type='checkbox' />
-          </CheckBox>
-          <ToDoText>To Do</ToDoText>
-          <ListDate>{new Date().toLocaleDateString()}</ListDate>
-          <DelBtn>
-            <button>🗑️</button>
-          </DelBtn>
-        </ToDoItem>
-        <ToDoItem>
-          <CheckBox>
-            <input type='checkbox' />
-          </CheckBox>
-          <ToDoText>To Do</ToDoText>
-          <ListDate>{new Date().toLocaleDateString()}</ListDate>
-          <DelBtn>
-            <button>🗑️</button>
-          </DelBtn>
-        </ToDoItem>
-        <ToDoItem>
-          <CheckBox>
-            <input type='checkbox' />
-          </CheckBox>
-          <ToDoText>To Do</ToDoText>
-          <ListDate>{new Date().toLocaleDateString()}</ListDate>
-          <DelBtn>
-            <button>🗑️</button>
-          </DelBtn>
-        </ToDoItem>
+        {toDo &&
+          toDo.map((it) => (
+            <TodoItems
+              key={it.id}
+              {...it}
+              onUpdate={onUpdate}
+              onDelete={onDelete}
+            />
+          ))}
       </ToDoWrapper>
     </ToDoTitle>
   );

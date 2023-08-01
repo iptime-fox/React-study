@@ -2,6 +2,7 @@ import { styled } from 'styled-components';
 import Header from './Component/Header';
 import ToDoEditor from './Component/ToDoEditor';
 import ToDoList from './Component/ToDoList';
+import { useRef, useState } from 'react';
 
 const Wrapper = styled.div`
   max-width: 500px;
@@ -17,11 +18,38 @@ const Wrapper = styled.div`
 `;
 
 function App() {
+  const [toDo, setToDo] = useState('');
+  const idRef = useRef(0);
+  const onCreate = (content) => {
+    const newItem = {
+      id: idRef.current,
+      content,
+      isDone: false,
+      createdDate: new Date().getTime(),
+    };
+    setToDo([newItem, ...toDo]);
+    idRef.current += 1;
+  };
+  const onUpdate = (targetId) => {
+    setToDo(
+      toDo.map((it) =>
+        it.id === targetId
+          ? {
+              ...it,
+              isDone: !it.isDone,
+            }
+          : it
+      )
+    );
+  };
+  const onDelete = (targetId) => {
+    setToDo(toDo.filter((it) => it.id !== targetId));
+  };
   return (
     <Wrapper>
       <Header />
-      <ToDoEditor />
-      <ToDoList />
+      <ToDoEditor onCreate={onCreate} />
+      <ToDoList toDo={toDo} onUpdate={onUpdate} onDelete={onDelete} />
     </Wrapper>
   );
 }
