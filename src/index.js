@@ -4,7 +4,7 @@ import App from './App';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -23,7 +23,7 @@ time, mark, audio, video {
   border: 0;
   font-size: 100%;
   font: inherit;
-  font-family: 'Frank Ruhl Libre', serif;
+  font-family: 'Noto Sans KR', sans-serif;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -57,9 +57,9 @@ table {
   box-sizing: border-box;
 }
 body{
-  font-family: 'Frank Ruhl Libre', serif;
+  font-family: 'Noto Sans KR', sans-serif;
   color:#ffacac;
-  /* background-color: #FFFFE8; */
+  background-color: #FFFFE8;
 }
 a{
   text-decoration: none;
@@ -67,10 +67,10 @@ a{
 }
 li{
   list-style: none;
-  font-family: 'Frank Ruhl Libre', serif;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 button, input, select{
-  font-family: 'Frank Ruhl Libre', serif;
+  font-family: 'Noto Sans KR', sans-serif;
 
 }
 
