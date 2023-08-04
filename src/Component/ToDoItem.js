@@ -7,6 +7,7 @@ const ToDoItem = styled.div`
   gap: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #ffacac;
+  color: #666;
 `;
 
 const CheckBox = styled.div`
