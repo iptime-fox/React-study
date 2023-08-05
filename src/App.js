@@ -2,8 +2,9 @@ import { styled } from 'styled-components';
 import Header from './Component/Header';
 import ToDoEditor from './Component/ToDoEditor';
 import ToDoList from './Component/ToDoList';
-import { useRef, useState } from 'react';
+import { useReducer, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import TestComp from './Component/TestComp';
 
 const Wrapper = styled.div`
   max-width: 500px;
@@ -18,39 +19,25 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
+function reducer(state, action) {
+  // 상태 변화 코드
+  return state;
+}
+
 function App() {
-  const [toDo, setToDo] = useState([]);
+  const [toDo, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
   const onCreate = (content) => {
-    const newItem = {
-      id: idRef.current,
-      content,
-      isDone: false,
-      createdDate: new Date().getTime(),
-    };
-    setToDo([newItem, ...toDo]);
     idRef.current += 1;
   };
-  const onUpdate = (targetId) => {
-    setToDo(
-      toDo.map((it) =>
-        it.id === targetId
-          ? {
-              ...it,
-              isDone: !it.isDone,
-            }
-          : it
-      )
-    );
-  };
-  const onDelete = (targetId) => {
-    setToDo(toDo.filter((it) => it.id !== targetId));
-  };
+  const onUpdate = (targetId) => {};
+  const onDelete = (targetId) => {};
   return (
     <Wrapper>
       <Helmet>
         <title>ToDo</title>
       </Helmet>
+      {/* <TestComp /> */}
       <Header />
       <ToDoEditor onCreate={onCreate} />
       <ToDoList toDo={toDo} onUpdate={onUpdate} onDelete={onDelete} />
