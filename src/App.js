@@ -20,18 +20,55 @@ const Wrapper = styled.div`
 `;
 
 function reducer(state, action) {
-  // 상태 변화 코드
-  return state;
+  switch (action.type) {
+    case 'CREATE': {
+      return [action.newItem, ...state];
+    }
+    case 'UPDATE': {
+      return state.map((it) =>
+        it.id === action.targetId
+          ? {
+              ...it,
+              isDone: !it.isDone,
+            }
+          : it
+      );
+    }
+    case 'DELETE': {
+      return state.filter((it) => it.id !== action.targetId);
+    }
+    default:
+      return state;
+  }
 }
 
 function App() {
   const [toDo, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
   const onCreate = (content) => {
+    dispatch({
+      type: 'CREATE',
+      newItem: {
+        id: idRef.current,
+        content,
+        isDone: false,
+        createdDate: new Date().getTime(),
+      },
+    });
     idRef.current += 1;
   };
-  const onUpdate = (targetId) => {};
-  const onDelete = (targetId) => {};
+  const onUpdate = (targetId) => {
+    dispatch({
+      type: 'UPDATE',
+      targetId,
+    });
+  };
+  const onDelete = (targetId) => {
+    dispatch({
+      type: 'DELETE',
+      targetId,
+    });
+  };
   return (
     <Wrapper>
       <Helmet>

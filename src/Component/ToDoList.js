@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { styled } from 'styled-components';
 import TodoItems from './ToDoItem';
 
@@ -48,9 +48,27 @@ function ToDoList({ toDo, onUpdate, onDelete }) {
           it.content.toLowerCase().includes(search.toLowerCase())
         );
   };
+  const analyzeTodo = useMemo(() => {
+    const totalCount = toDo.length;
+    const doneCount = toDo.filter((it) => it.isDone).length;
+    const notDoneCount = totalCount - doneCount;
+    return {
+      totalCount,
+      doneCount,
+      notDoneCount,
+    };
+  }, [toDo]);
+  const { totalCount, doneCount, notDoneCount } = analyzeTodo;
   return (
     <ToDoTitle>
       <h4>ToDo List 📋</h4>
+      <div>
+        <div>총 개수: {totalCount}</div>
+        <br />
+        <div>완료된 할 일: {doneCount}</div>
+        <br />
+        <div>아직 완료하지 못한 할 일: {notDoneCount}</div>
+      </div>
       <input
         type='text'
         placeholder='Search a keyword...'
