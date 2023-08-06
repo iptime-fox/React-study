@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { styled } from 'styled-components';
+import { TodoDispatchContext } from '../App';
 
 const ToDoTitle = styled.div`
   width: 100%;
@@ -44,7 +45,8 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-function ToDoEditor({ onCreate }) {
+function ToDoEditor() {
+  const { onCreate } = useContext(TodoDispatchContext);
   const [content, setContent] = useState('');
   const inputRef = useRef();
   const onChangeContent = (e) => {

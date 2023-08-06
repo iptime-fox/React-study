@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { styled } from 'styled-components';
+import { TodoDispatchContext } from '../App';
 
 const ToDoItem = styled.div`
   display: flex;
@@ -32,7 +33,9 @@ const DelBtn = styled.div`
   }
 `;
 
-function TodoItems({ id, content, isDone, createdDate, onUpdate, onDelete }) {
+function TodoItems({ id, content, isDone, createdDate }) {
+  console.log(`${id} TodoItem 업데이트`);
+  const { onUpdate, onDelete } = useContext(TodoDispatchContext);
   const onChangeCheckBox = () => {
     onUpdate(id);
   };

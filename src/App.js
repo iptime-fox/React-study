@@ -2,7 +2,13 @@ import { styled } from 'styled-components';
 import Header from './Component/Header';
 import ToDoEditor from './Component/ToDoEditor';
 import ToDoList from './Component/ToDoList';
-import { useReducer, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import { Helmet } from 'react-helmet';
 import TestComp from './Component/TestComp';
 
@@ -42,6 +48,9 @@ function reducer(state, action) {
   }
 }
 
+export const TodoStateContext = React.createContext();
+export const TodoDispatchContext = React.createContext();
+
 function App() {
   const [toDo, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
@@ -57,18 +66,21 @@ function App() {
     });
     idRef.current += 1;
   };
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type: 'UPDATE',
       targetId,
     });
-  };
-  const onDelete = (targetId) => {
+  }, []);
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: 'DELETE',
       targetId,
     });
-  };
+  }, []);
+  const memoizedDispatches = useMemo(() => {
+    return { onCreate, onDelete, onUpdate };
+  }, []);
   return (
     <Wrapper>
       <Helmet>
@@ -76,8 +88,12 @@ function App() {
       </Helmet>
       {/* <TestComp /> */}
       <Header />
-      <ToDoEditor onCreate={onCreate} />
-      <ToDoList toDo={toDo} onUpdate={onUpdate} onDelete={onDelete} />
+      <TodoStateContext.Provider value={toDo}>
+        <TodoDispatchContext.Provider value={memoizedDispatches}>
+          <ToDoEditor />
+          <ToDoList />
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
     </Wrapper>
   );
 }
