@@ -80,7 +80,7 @@ function App() {
   }, []);
   const memoizedDispatches = useMemo(() => {
     return { onCreate, onDelete, onUpdate };
-  }, []);
+  }, [onUpdate, onDelete]);
   return (
     <Wrapper>
       <Helmet>
